@@ -36,7 +36,7 @@ done
 
 read -p "Should the passwords be saved? (y/n) " choice
 if [[ $choice =~ ^[Yy]$ ]]; then
-  read -p "With wich "tag" should the passwors be saved? " tag
+  read -p "With which "tag" should the passwors be saved? " tag
   filename="password_${tag}_$(date +%Y-%m-%d_%H-%M-%S).txt"
   for ((i=1; i<=count; i++)); do
     password=$(generate_password "$length")
