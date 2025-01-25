@@ -44,7 +44,7 @@ echo "Erstelle desktop starter..."
 printf '%s\n' "[Desktop Entry]
 Version=1.0
 Type=Application
-Name=Passwort Generator
+Name=Generator
 Comment=Generiert sichere Passwörter
 Exec=/bin/bash $HOME/.local/share/applications/generator.sh
 Icon=$HOME/.local/share/icons/password-IconWhite.svg
