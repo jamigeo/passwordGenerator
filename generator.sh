@@ -1,7 +1,7 @@
 #!/bin/bash
 
 generate_password() {
-  local length=\$1
+  local length=$1
   local charset='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?'
   local password=''
   for ((i=0; i<length; i++)); do
