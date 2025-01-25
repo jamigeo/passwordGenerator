@@ -17,7 +17,7 @@ The password generator has the following features:
 
 To download and install, execute the following command in your bash shell:
 
-$(wget -O installer.sh https://raw.githubusercontent.com/jamigeo/passwordGenerator/main/installer.sh chmod +x installer.sh ./installer.sh)
+```bash wget -O installer.sh https://raw.githubusercontent.com/jamigeo/passwordGenerator/main/installer.sh chmod +x installer.sh ./installer.sh```
 
 The password generator can then be launched from the application menu. 
 
