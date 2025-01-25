@@ -1,4 +1,4 @@
-#!/bin/bash
+Kommentare bitte in Englisch: #!/bin/bash
 
 generate_password() {
   local length=$1
@@ -10,56 +10,56 @@ generate_password() {
   echo "$password"
 }
 
-# Check if the number of passwords was passed as an argument
+# Überprüfen, ob die Anzahl der Passwörter als Argument übergeben wurde
 if [ $# -eq 1 ]; then
   count=\$1
 else
-  # Ask for the number of passwords to generate
-  read -p "How many passwords should be generated? " count
+  # Anzahl der zu generierenden Passwörter abfragen
+  read -p "Wie viele Passwörter sollen generiert werden? " count
 fi
 
-# Set minimum and maximum length for passwords
+# Mindest- und Höchstlänge für Passwörter festlegen
 min_length=8
 max_length=32
 
-# Ask for the length of the passwords
+# Länge der Passwörter abfragen
 while true; do
-  read -p "How long should the passwords be? (between $min_length and $max_length characters) " length
+  read -p "Wie lang sollen die Passwörter sein? (zwischen $min_length und $max_length Zeichen) " length
   if [[ $length -ge $min_length && $length -le $max_length ]]; then
     break
   else
-    echo "Please enter a length between $min_length and $max_length characters."
+    echo "Bitte geben Sie eine Länge zwischen $min_length und $max_length Zeichen ein."
   fi
 done
 
-# Generate and output passwords
+# Passwörter generieren und ausgeben
 for ((i=1; i<=count; i++)); do
   password=$(generate_password "$length")
-  echo "Password $i: $password"
+  echo "Passwort $i: $password"
   unset password
 done
 
-# Save passwords to a file
-read -p "Should the passwords be saved in a file? (y/n) " choice
-if [[ $choice =~ ^[Yy]$ ]]; then
-  read -p "Under which tag should the passwords be saved? " tag
+# Passwörter in Datei speichern
+read -p "Sollen die Passwörter in einer Datei gespeichert werden? (j/n) " choice
+if [[ $choice =~ ^[Jj]$ ]]; then
+  read -p "Unter welchem "tag" sollen die Passwörter gespeichert werden? " tag
   filename="password_${tag}_$(date +%Y-%m-%d_%H-%M-%S).txt"
   for ((i=1; i<=count; i++)); do
     password=$(generate_password "$length")
-    echo "Password $i: $password" >> "$filename"
+    echo "Passwort $i: $password" >> "$filename"
     unset password
   done
   
-  # Encrypt and compress the file as a ZIP archive
+  # Verschlüssle und komprimiere die Datei als ZIP-Archiv
   zip -e "${filename%.*}.zip" "$filename"
   
-  # Delete the original file
+  # Lösche die Originaldatei
   rm "$filename" 2>/dev/null
   
-  # Move the encrypted ZIP archive to ~/Cred/
+  # Verschiebe das verschlüsselte ZIP-Archiv nach ~/Cred/
   mv "${filename%.*}.zip" ~/Cred/
   
-  echo "Passwords have been saved in file ${filename%.*}.zip and moved to ~/Cred/."
+  echo "Passwörter wurden in Datei ${filename%.*}.zip gespeichert und nach ~/Cred/ verschoben."
 fi
 
-echo "Done!"
+echo "Fertig!"
