@@ -1,4 +1,4 @@
-Kommentare bitte in Englisch: #!/bin/bash
+#!/bin/bash
 
 generate_password() {
   local length=$1
