@@ -11,6 +11,7 @@ The password generator has the following features:
 - The zip file is saved in the `/Cred` directory with a user-specified tag and date stamp
 - When opening the zip file, the user is prompted to enter the password displayed during generation
 - Can be added to the Linux Mint panel for one-click password generation when prompted in a web browser
+- The panel icon is automatically downloaded and set up by the installer script
 
 ## Usage
 
@@ -31,18 +32,16 @@ If saving is enabled, the zip file will be created in the `/Cred` directory with
 
 `passwords_<tag>_<YYYY-MM-DD>.zip`
 
-You will be prompted for a password by creation of the *.zip file...
+The zip file will be encrypted with a password by generation. When opening the zip file, you will be prompted to enter this password to access the contents.
 
 ## Adding to the Linux Mint Panel
 
-To make the most of the password generator, you should add it to the panel of your Linux Mint distribution. This will allow you to generate passwords with just one click when prompted in a web browser.
+To make the most of the password generator, the installer script automatically adds it to the panel of your Linux Mint distribution. This allows you to generate passwords with just one click when prompted in a web browser.
 
-To add the generator to the panel:
+The installer takes care of:
 
-1. Right-click on the panel and select "Add to Panel"
-2. Choose "Custom Application Launcher" and click "Add" 
-3. Set the "Name" to "Password Generator"
-4. Set the "Command" to the path of the installed password generator script
-5. Click "OK" to add the launcher to the panel
+1. Downloading an appropriate icon for the panel launcher
+2. Creating a custom application launcher with the correct name and command
+3. Adding the launcher to the Linux Mint panel
 
-Now you can simply click the "Password Generator" icon in the panel anytime you need to quickly generate secure passwords.
+After installation, you can simply click the "Password Generator" icon in the panel anytime you need to quickly generate secure passwords.
