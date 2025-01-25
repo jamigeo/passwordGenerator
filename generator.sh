@@ -50,7 +50,7 @@ if [[ $choice =~ ^[Yy]$ ]]; then
 
   mv "${filename%.*}.zip" ~/Cred/
   
-  echo "Passwords have been saved ${ asfilename%.*}.zip and moved to directory: ~/Cred/"
+  echo "Passwords have been saved ${ asfilename%.*}.zip and moved to directory: /Cred"
 fi
 
 echo "Ready!"
