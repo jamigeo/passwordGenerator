@@ -50,10 +50,10 @@ Exec=/bin/bash $HOME/.local/share/applications/generator.sh
 Icon=$HOME/.local/share/icons/password-IconWhite.svg
 Path=
 Terminal=true
-StartupNotify=false" > ~/.local/share/applications/password-generator.desktop
+StartupNotify=false" > ~/.local/share/applications/Generator.desktop
 
 # Sicherstellen, dass die Desktop-Datei ausführbar ist
-chmod +x ~/.local/share/applications/password-generator.desktop
+chmod +x ~/.local/share/applications/Generator.desktop
 
 # --- Launcher-Integration ---
 echo "Versuche Integration in das Panel..."
@@ -63,12 +63,12 @@ if command -v gsettings &> /dev/null; then
     
     if [[ $PANEL_SCHEMA == "org.gnome.shell" ]]; then
         # GNOME-Integration, Favoriten hinzufügen
-        gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps | sed "s/]$/, 'password-generator.desktop']/")"
+        gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps | sed "s/]$/, 'Generator.desktop']/")"
         echo "Passwort Generator wurde zu den GNOME-Favoriten hinzugefügt."
         
     elif [[ $PANEL_SCHEMA == "org.cinnamon.panel" ]]; then
         # Cinnamon-Integration (z. B. bei Linux Mint)
-        gsettings set org.cinnamon panel-launchers "$(gsettings get org.cinnamon panel-launchers | sed "s/]$/, 'password-generator.desktop']/")"
+        gsettings set org.cinnamon panel-launchers "$(gsettings get org.cinnamon panel-launchers | sed "s/]$/, 'Generator.desktop']/")"
         echo "Passwort Generator wurde zu den Cinnamon-Panel-Launchern hinzugefügt."
     else
         echo "Panel-Integration nicht automatisch unterstützbar (unbekannte Desktop-Umgebung). Bitte füge die Anwendung manuell zu deinem Panel hinzu."
