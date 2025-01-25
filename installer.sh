@@ -59,7 +59,7 @@ chmod +x ~/.local/share/applications/Generator.desktop
 echo "Versuche Integration in das Panel..."
 if command -v gsettings &> /dev/null; then
     # Herausfinden, welches Desktop-Panel aktiv ist (z. B. GNOME oder Cinnamon)
-    PANEL_SCHEMA=$(gsettings list-schemas | grep -E '^org\.gnome\.$shell\|panel\|cinnamon\.panel$')
+    PANEL_SCHEMA=$(gsettings list-schemas | grep -E '^org\.gnome\.(shell|panel|cinnamon\.panel)$')
     
     if [[ $PANEL_SCHEMA == "org.gnome.shell" ]]; then
         # GNOME-Integration, Favoriten hinzufügen
