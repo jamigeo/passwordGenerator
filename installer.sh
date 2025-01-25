@@ -86,5 +86,6 @@ if ! $HOME/.local/share/applications/generator.sh; then
 else
     echo "The password generator was successfully tested."
 fi
-
+echo ""
+echo ""
 echo "The installation script is complete. The password generator has been installed. If the Generator isn't added to your panel, then you can add the 'Generator' by searching it in the system, and with rightclick you can add it to..."
