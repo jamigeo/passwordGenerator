@@ -1,7 +1,7 @@
 #!/bin/bash
 
 generate_password() {
-  local length=$1
+  local length=\$1
   local charset='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?'
   local password=''
   for ((i=0; i<length; i++)); do
@@ -10,56 +10,56 @@ generate_password() {
   echo "$password"
 }
 
-# Überprüfen, ob die Anzahl der Passwörter als Argument übergeben wurde
+# Check if the number of passwords was passed as an argument
 if [ $# -eq 1 ]; then
   count=\$1
 else
-  # Anzahl der zu generierenden Passwörter abfragen
-  read -p "Wie viele Passwörter sollen generiert werden? " count
+  # Ask for the number of passwords to generate
+  read -p "How many passwords should be generated? " count
 fi
 
-# Mindest- und Höchstlänge für Passwörter festlegen
+# Set minimum and maximum length for passwords
 min_length=8
 max_length=32
 
-# Länge der Passwörter abfragen
+# Ask for the length of the passwords
 while true; do
-  read -p "Wie lang sollen die Passwörter sein? (zwischen $min_length und $max_length Zeichen) " length
+  read -p "How long should the passwords be? (between $min_length and $max_length characters) " length
   if [[ $length -ge $min_length && $length -le $max_length ]]; then
     break
   else
-    echo "Bitte geben Sie eine Länge zwischen $min_length und $max_length Zeichen ein."
+    echo "Please enter a length between $min_length and $max_length characters."
   fi
 done
 
-# Passwörter generieren und ausgeben
+# Generate and output passwords
 for ((i=1; i<=count; i++)); do
   password=$(generate_password "$length")
-  echo "Passwort $i: $password"
+  echo "Password $i: $password"
   unset password
 done
 
-# Passwörter in Datei speichern
-read -p "Sollen die Passwörter in einer Datei gespeichert werden? (j/n) " choice
-if [[ $choice =~ ^[Jj]$ ]]; then
-  read -p "Unter welchem "tag" sollen die Passwörter gespeichert werden? " tag
+# Save passwords to a file
+read -p "Should the passwords be saved in a file? (y/n) " choice
+if [[ $choice =~ ^[Yy]$ ]]; then
+  read -p "Under which tag should the passwords be saved? " tag
   filename="password_${tag}_$(date +%Y-%m-%d_%H-%M-%S).txt"
   for ((i=1; i<=count; i++)); do
     password=$(generate_password "$length")
-    echo "Passwort $i: $password" >> "$filename"
+    echo "Password $i: $password" >> "$filename"
     unset password
   done
   
-  # Verschlüssle und komprimiere die Datei als ZIP-Archiv
+  # Encrypt and compress the file as a ZIP archive
   zip -e "${filename%.*}.zip" "$filename"
   
-  # Lösche die Originaldatei
+  # Delete the original file
   rm "$filename" 2>/dev/null
   
-  # Verschiebe das verschlüsselte ZIP-Archiv nach ~/Cred/
+  # Move the encrypted ZIP archive to ~/Cred/
   mv "${filename%.*}.zip" ~/Cred/
   
-  echo "Passwörter wurden in Datei ${filename%.*}.zip gespeichert und nach ~/Cred/ verschoben."
+  echo "Passwords have been saved in file ${filename%.*}.zip and moved to ~/Cred/."
 fi
 
-echo "Fertig!"
+echo "Done!"
