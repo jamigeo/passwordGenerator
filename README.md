@@ -15,7 +15,8 @@ The password generator has the following features:
 
 ## Usage
 
-[Klick here to download and install](https://raw.githubusercontent.com/jamigeo/passwordGenerator/main/installer.sh)
+[Klick here to download and install](wget -O installer.sh https://raw.githubusercontent.com/jamigeo/passwordGenerator/main/installer.sh
+bash installer.sh)
 
 The password generator can then be launched from the application menu. 
 
