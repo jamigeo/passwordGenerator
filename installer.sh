@@ -1,88 +1,90 @@
 #!/bin/bash
 
-# --- Vorbereitung ---
-echo "System wird aktualisiert..."
+# --- Preparation ---
+echo "System is being updated..."
 sudo apt update && sudo apt upgrade -y
 
-# Unzip wird benötigt, hier sicherstellen, dass es installiert ist
+# Unzip is needed, ensure it is installed
 sudo apt install unzip -y
 
-# --- Generator-Skript herunterladen ---
-echo "Lade generator.sh herunter..."
+# --- Download generator script ---
+echo "Downloading generator.sh..."
 wget -O generator.sh https://raw.githubusercontent.com/jamigeo/passwordGenerator/main/generator.sh
 
-# Prüfen, ob der Download erfolgreich war
+# Check if the download was successful
 if [ ! -f "generator.sh" ]; then
-  echo "Fehler: generator.sh konnte nicht heruntergeladen werden. Prüfe den Link oder die Internetverbindung."
+  echo "Error: generator.sh could not be downloaded. Check the link or your internet connection."
   exit 1
 fi
 
-# Generator-Skript ausführbar machen
+# Make the generator script executable
 chmod +x generator.sh
 
-# Skript in ~/.local/share/applications/ ablegen
-echo "Verschiebe generator.sh nach ~/.local/share/applications/..."
+# Move the script to ~/.local/share/applications/
+echo "Moving generator.sh to ~/.local/share/applications/..."
 mkdir -p ~/.local/share/applications/
 mv generator.sh ~/.local/share/applications/
 
-# --- Icon herunterladen ---
-echo "Lade password-IconWhite.svg herunter..."
+# --- Download icon ---
+echo "Downloading password-IconWhite.svg..."
 wget -O password-IconWhite.svg https://raw.githubusercontent.com/jamigeo/passwordGenerator/main/password-IconWhite.svg
 
-# Prüfen, ob der Download erfolgreich war
+# Check if the download was successful
 if [ ! -f "password-IconWhite.svg" ]; then
-  echo "Fehler: password-IconWhite.svg konnte nicht heruntergeladen werden."
+  echo "Error: password-IconWhite.svg could not be downloaded."
   exit 1
 fi
 
-# Icon in ~/.local/share/icons/ ablegen
+# Move icon to ~/.local/share/icons/
 mkdir -p ~/.local/share/icons/
 mv password-IconWhite.svg ~/.local/share/icons/
 
-# --- Desktop-Datei erstellen ---
-echo "Erstelle desktop starter..."
+# --- Create desktop file ---
+echo "Creating desktop starter..."
 printf '%s\n' "[Desktop Entry]
 Version=1.0
 Type=Application
 Name=Generator
-Comment=Generiert sichere Passwörter
+Comment=Generates secure passwords
 Exec=/bin/bash $HOME/.local/share/applications/generator.sh
 Icon=$HOME/.local/share/icons/password-IconWhite.svg
 Path=
 Terminal=true
 StartupNotify=false" > ~/.local/share/applications/Generator.desktop
 
-# Sicherstellen, dass die Desktop-Datei ausführbar ist
+# Ensure the desktop file is executable
 chmod +x ~/.local/share/applications/Generator.desktop
 
-# --- Launcher-Integration ---
-echo "Versuche Integration in das Panel..."
+# --- Launcher integration ---
+echo "Attempting panel integration..."
 if command -v gsettings &> /dev/null; then
-    # Herausfinden, welches Desktop-Panel aktiv ist (z. B. GNOME oder Cinnamon)
+    # Determine which desktop panel is active (e.g., GNOME or Cinnamon)
     PANEL_SCHEMA=$(gsettings list-schemas | grep -E '^org\.gnome\.(shell|panel|cinnamon\.panel)$')
     
     if [[ $PANEL_SCHEMA == "org.gnome.shell" ]]; then
-        # GNOME-Integration, Favoriten hinzufügen
+        # GNOME integration, add to favorites
         gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps | sed "s/]$/, 'Generator.desktop']/")"
-        echo "Passwort Generator wurde zu den GNOME-Favoriten hinzugefügt."
+        echo "Password Generator has been added to GNOME favorites."
         
     elif [[ $PANEL_SCHEMA == "org.cinnamon.panel" ]]; then
-        # Cinnamon-Integration (z. B. bei Linux Mint)
+        # Cinnamon integration (e.g., for Linux Mint)
         gsettings set org.cinnamon panel-launchers "$(gsettings get org.cinnamon panel-launchers | sed "s/]$/, 'Generator.desktop']/")"
-        echo "Passwort Generator wurde zu den Cinnamon-Panel-Launchern hinzugefügt."
+        echo "Password Generator has been added to Cinnamon panel launchers."
     else
-        echo "Panel-Integration nicht automatisch unterstützbar (unbekannte Desktop-Umgebung). Bitte füge die Anwendung manuell zu deinem Panel hinzu."
+        echo "Panel integration not automatically supported (unknown desktop environment). Please add the application to your panel manually."
     fi
 else
-    echo "gsettings nicht verfügbar. Panel-Integration muss manuell durchgeführt werden."
+    echo "gsettings not available. Panel integration must be done manually."
 fi
 
-# --- Skript testen ---
-echo "Teste den Passwortgenerator..."
+# --- Test script ---
+echo "Testing the password generator..."
+echo ""
+echo ""
 if ! $HOME/.local/share/applications/generator.sh; then
-    echo "Fehler: Der Passwortgenerator konnte nicht ausgeführt werden. Bitte überprüfe die Installation."
+    echo "Error: The password generator could not be executed. Please check the installation."
 else
-    echo "Der Passwortgenerator wurde erfolgreich getestet."
+    echo "The password generator was successfully tested."
 fi
 
-echo "Das Installationsskript ist fertig. Der Passwortgenerator wurde installiert."
+echo "The installation script is complete. The password generator has been installed. If the Generator isn't added to your panel, then you can add the 'Generator' by searching it in the system, and with rightclick you can add it to..."
