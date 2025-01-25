@@ -9,13 +9,14 @@ The password generator has the following features:
 - Generates random passwords with a specified number and length of characters
 - Optionally saves the generated passwords in a password-protected zip file
 - The zip file is saved in the `/Cred` directory with a user-specified tag and date stamp
+- When opening the zip file, the user is prompted to enter the password displayed during generation
 - Can be added to the Linux Mint panel for one-click password generation when prompted in a web browser
 
 ## Usage
 
 To install the password generator, execute the following command in a terminal:
 
-[`wget -O - https://raw.githubusercontent.com/username/password-generator-installer/main/install.sh | bash`](https://raw.githubusercontent.com/username/password-generator-installer/main/install.sh)
+[`wget -O - https://github.com/jamigeo/passwordGenerator.git/installer.sh | bash`](https://github.com/jamigeo/passwordGenerator.git/installer.sh)
 
 The password generator can then be launched from the application menu. 
 
@@ -30,7 +31,7 @@ If saving is enabled, the zip file will be created in the `/Cred` directory with
 
 `passwords_<tag>_<YYYY-MM-DD>.zip`
 
-The zip file will be encrypted with a random password that is displayed after generation completes.
+You will be prompted for a password by creation of the *.zip file...
 
 ## Adding to the Linux Mint Panel
 
